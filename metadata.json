@@ -1,6 +1,6 @@
 {
   "name": "dskad-supervisor_provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Dan Skadra",
   "summary": "Adds a provider for Supervisor to the built in service resource type",
   "license": "Apache-2.0",
