@@ -21,15 +21,8 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
 
   def enabled?
     output = supervisorctl(:avail)
-    if match = output.scan(/#{resource[:name]}\s+(in use|avail)/i)[0]
-      case match.to_s
-      when /in use/i
-        return :true
-      when /avail/i
-        return :false
-      else
-        return :false
-      end
+    if match = output.scan(/#{resource[:name]}\s+(in use)/i)[0]
+      return :true
     end
     return :false
   rescue Puppet::ExecutionFailure
