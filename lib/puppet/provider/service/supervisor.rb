@@ -20,8 +20,8 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
   end
 
   def enabled?
-    output = supervisorctl(:avail, @resource[:name])
-    if match = output.scan(/\S+\s+(in use|avail)/i)[0]
+    output = supervisorctl(:avail)
+    if match = output.scan(/#{resource[:name]}\s+(in use|avail)/i)[0]
       case match.to_s
       when /in use/i
         return :true
