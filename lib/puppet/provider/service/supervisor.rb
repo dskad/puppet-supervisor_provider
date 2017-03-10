@@ -9,6 +9,7 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
   def self.instances
     # avail subcommand returns 'in use' for enabled and 'avail' for disabled
     i = []
+    supervisorctl(:reread)
     output = supervisorctl(:avail)
     output.scan(/^(\S+)\s+(in use|avail)/i).each do |m|
       i << new(:name => m[0])
@@ -20,6 +21,7 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
   end
 
   def enabled?
+    supervisorctl(:reread)
     output = supervisorctl(:avail)
     if match = output.scan(/#{resource[:name]}\s+(in use)/i)[0]
       return :true
