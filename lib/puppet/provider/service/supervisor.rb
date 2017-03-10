@@ -23,7 +23,7 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
   def enabled?
     supervisorctl(:reread)
     output = supervisorctl(:avail)
-    if match = output.scan(/#{resource[:name]}\s+(in use)/i)[0]
+    if output =~ /#{resource[:name]}\s+(in use)/i
       return :true
     end
     return :false
