@@ -1,7 +1,15 @@
-## 2016-01-15 Release 0.1.2
-### Summary
+## 2017-06-01 Release 0.1.3
 
-Update change log. Forgot to add the 0.1.1 release.
+ - Fix issue where multiple process would be parsed incorrectly and cause puppet
+   to constantly try to disable/enable processes.
+ - Provider now checks for configuration changes before checking or changing 
+   process state. This fixes new processes not starting or incorrectly reporting
+   state change and supervisor config changes not properly refreshing on change
+ - Code clean up
+
+## 2016-01-15 Release 0.1.2
+
+ - Update change log. Forgot to add the 0.1.1 release.
 
 ## 2016-01-15 - Release 0.1.1
 ### Summary
