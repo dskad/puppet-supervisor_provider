@@ -75,7 +75,7 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
   def restart
     reread_output = supervisorctl(:reread)
     if @resource[:restart]
-      output = %x[#{resource[:restart]}]
+      output = %x["#{resource[:restart]}"]
     else
       if reread_output =~ /#{resource[:name]}:\s+(changed)/i
         output = supervisorctl(:update, @resource[:name])
