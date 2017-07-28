@@ -73,16 +73,17 @@ Puppet::Type.type(:service).provide(:supervisor, :parent => :base) do
   end
 
   def restart
+    reread_output = supervisorctl(:reread)
     if @resource[:restart]
       output = `#{resource[:restart]}`
     else
-      reread_output = supervisorctl(:reread)
       if reread_output =~ /#{resource[:name]}:\s+(changed)/i
         output = supervisorctl(:update, @resource[:name])
       else
         output = supervisorctl(:restart, @resource[:name])
       end
-    end  rescue Puppet::ExecutionFailure
+    end
+  rescue Puppet::ExecutionFailure
     raise Puppet::Error, "Could not restart #{self.name}: #{output}"
   end
 
